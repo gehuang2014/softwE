@@ -21,6 +21,11 @@ public class Field {
 		return field[x - 1][y - 1];
 	}
 
+	public void initField(int iNumMines) {
+		for (int i = 0; i < iNumMines; i++) {
+			
+		}
+	}
 	@Override
 	public String toString() {
 		StringBuffer sbLineSep = new StringBuffer();
