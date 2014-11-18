@@ -4,7 +4,7 @@ public class Cell {
 	private int x;
 	private int y;
 	private boolean bMine = false;
-	private boolean bVisible = false;
+	private boolean bVisible = true;
 	private boolean bMarked = false;
 	private int iAdjMines = 0;
 

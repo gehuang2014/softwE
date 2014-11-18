@@ -40,6 +40,11 @@ public class FieldTest {
 	}
 
 	@Test
+	public void testToString() {
+		assertEquals(testString, field.toString());
+	}
+
+	@Test
 	public void testGetCell() {
 		for (int i = 1; i <= width; i++) {
 			for (int j = 1; j <= height; j++) {
@@ -50,7 +55,24 @@ public class FieldTest {
 	}
 
 	@Test
-	public void testToString() {
-		assertEquals(testString, field.toString());
+	public void testSetNumMines() {
+		assertEquals(0, field.getNumMines());
+		field.setNumMines(10);
+		assertEquals(10, field.getNumMines());
+	}
+
+	@Test
+	public void testInitField() {
+		field.setNumMines(10);
+		field.initField();
+		int iMineCounter = 0;
+		for (int i = 1; i <= width; i++) {
+			for (int j = 1; j <= height; j++) {
+				if (field.getCell(i, j).getMine()) {
+					iMineCounter++;
+				}
+			}
+		}
+		assertEquals(10, iMineCounter);
 	}
 }
