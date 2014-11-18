@@ -31,6 +31,15 @@ public class CellTest {
 	}
 
 	@Test
+	public void testGetMarked() {
+		assertFalse(cell.getMarked());
+		cell.setMarked(true);
+		assertTrue(cell.getMarked());
+		cell.setMarked(false);
+		assertFalse(cell.getMarked());
+	}
+
+	@Test
 	public void testGetVisible() {
 		assertFalse(cell.getVisible());
 		cell.setVisible();

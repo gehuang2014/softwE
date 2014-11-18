@@ -3,8 +3,8 @@ package minesweeper.model;
 
 public class Field {
 	private Cell[][] field;
-	int x;
-	int y;
+	private int x;
+	private int y;
 
 	public Field(int width, int height) {
 		field = new Cell[width][height];
@@ -38,11 +38,24 @@ public class Field {
 		}
 		sbLineSep.append("\n");
 
-		for (int i = 1; i <= x; i++) {
-			for (int j = 1; j <= y; j++) {
-				sb.append(sbLineSep).append("| ");
+		for (int i = 0; i < y; i++) {
+			sb.append(sbLineSep);
+			for (int j = 0; j < x; j++) {
+				sb.append("| ");
+				if (field[j][i].getVisible()) {
+					sb.append(field[j][i].getNumberAdjMines());
+				} else {
+					if (field[j][i].getMarked()) {
+						sb.append("!");
+					} else {
+						sb.append(" ");
+					}
+				}
+				sb.append(" ");
 			}
+			sb.append("|\n");
 		}
+		sb.append(sbLineSep);
 		return sb.toString();
 	}
 }

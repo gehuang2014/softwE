@@ -5,31 +5,40 @@ public class Cell {
 	private int y;
 	private boolean bMine = false;
 	private boolean bVisible = false;
+	private boolean bMarked = false;
 	private int iAdjMines = 0;
 
 	public Cell(int column, int row) {
-		x = column;
-		y = row;
+		this.x = column;
+		this.y = row;
 	}
 
 	public int getColumn() {
-		return x;
+		return this.x;
 	}
 
 	public int getRow() {
-		return y;
+		return this.y;
 	}
 
 	public boolean getMine() {
-		return bMine;
+		return this.bMine;
 	}
 
 	public void setMine() {
 		this.bMine = true;
 	}
 
+	public void setMarked(boolean m) {
+		this.bMarked = m;
+	}
+
+	public boolean getMarked() {
+		return this.bMarked;
+	}
+
 	public boolean getVisible() {
-		return bVisible;
+		return this.bVisible;
 	}
 
 	public void setVisible() {
@@ -37,7 +46,7 @@ public class Cell {
 	}
 
 	public int getNumberAdjMines() {
-		return iAdjMines;
+		return this.iAdjMines;
 	}
 
 	public void incNumberAdjMines() {
