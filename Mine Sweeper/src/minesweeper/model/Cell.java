@@ -4,7 +4,7 @@ public class Cell {
 	private int x;
 	private int y;
 	private boolean bMine = false;
-	private boolean bVisible = true;
+	private boolean bVisible = false;
 	private boolean bMarked = false;
 	private int iAdjMines = 0;
 
@@ -29,8 +29,12 @@ public class Cell {
 		this.bMine = true;
 	}
 
-	public void setMarked(boolean m) {
-		this.bMarked = m;
+	public void setMarked() {
+		if (bMarked) {
+			bMarked = false;
+		} else if (!bMarked) {
+			bMarked  = true;
+		}
 	}
 
 	public boolean getMarked() {
@@ -51,5 +55,16 @@ public class Cell {
 
 	public void incNumberAdjMines() {
 		this.iAdjMines++;
+	}
+
+	@Override
+	public String toString() {
+		if (bMarked) {
+			return "!";
+		}
+		if (bVisible) {
+			return String.valueOf(iAdjMines);
+		}
+		return " ";
 	}
 }

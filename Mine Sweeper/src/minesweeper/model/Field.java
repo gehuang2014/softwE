@@ -43,12 +43,49 @@ public class Field {
 
 			for (int yOffset = -1; yOffset <= +1; yOffset++) {
 				for (int xOffset = -1; xOffset <= +1; xOffset++) {
-					if ((xOffset != 0 || yOffset != 0) && (width + xOffset) >= 0 && (height + yOffset) >= 0 && (width + xOffset) <= x - 1 && (height + yOffset) <= y - 1) {
+					try {
 						field[width + xOffset][height + yOffset].incNumberAdjMines();
+					} catch (IndexOutOfBoundsException e) {
+						continue;
 					}
 				}
 			}
 		}
+	}
+
+	public void trigger(int x, int y) {
+		int width = x - 1;
+		int height = y - 1;
+		if (field[width][height].getMine()) {
+			gameOver();
+			return;
+		}
+		triggerR(width, height);
+	}
+
+	public void triggerR(int x, int y) {
+		try {
+			if (!field[x][y].getVisible()) {
+				field[x][y].setVisible();
+				if (field[x][y].getNumberAdjMines() == 0) {
+					for (int yOffset = -1; yOffset <= +1; yOffset++) {
+						for (int xOffset = -1; xOffset <= +1; xOffset++) {
+							triggerR(x + xOffset, y + yOffset);
+						}
+					}
+				}
+			}
+		} catch (IndexOutOfBoundsException e) {
+			return;
+		}
+	}
+
+	public void mark(int x, int y) {
+		field[x - 1][y - 1].setMarked();
+	}
+
+	public void gameOver() {
+		
 	}
 
 	@Override
@@ -66,19 +103,7 @@ public class Field {
 			sb.append(sbLineSep);
 			for (int j = 0; j < x; j++) {
 				sb.append("| ");
-				if (field[j][i].getVisible()) {
-					if (field[j][i].getMine()) {
-						sb.append("X");
-					} else {
-						sb.append(field[j][i].getNumberAdjMines());
-					}
-				} else {
-					if (field[j][i].getMarked()) {
-						sb.append("!");
-					} else {
-						sb.append(" ");
-					}
-				}
+				sb.append(field[j][i].toString());
 				sb.append(" ");
 			}
 			sb.append("|\n");
@@ -90,6 +115,7 @@ public class Field {
 		Field field = new Field(10, 10);
 		field.setNumMines(10);
 		field.initField();
+		field.trigger(1, 1);
 		System.out.print(field.toString());
 	}*/
 }

@@ -34,14 +34,6 @@ public class FieldTest {
 	@Before
 	public void setUp() throws Exception {
 		field = new Field(width, height);
-		field.getCell(3, 3).incNumberAdjMines();
-		field.getCell(3, 3).setVisible();
-		field.getCell(3, 4).setMarked(true);
-	}
-
-	@Test
-	public void testToString() {
-		assertEquals(testString, field.toString());
 	}
 
 	@Test
@@ -74,5 +66,30 @@ public class FieldTest {
 			}
 		}
 		assertEquals(10, iMineCounter);
+	}
+
+	@Test
+	public void testMark() {
+		assertFalse(field.getCell(3, 3).getMarked());
+		field.mark(3, 3);
+		assertTrue(field.getCell(3, 3).getMarked());
+	}
+
+	@Test
+	public void testTrigger() {
+		
+	}
+
+	@Test
+	public void testGameOver() {
+		assertTrue(true);
+	}
+	
+	@Test
+	public void testToString() {
+		field.getCell(3, 3).incNumberAdjMines();
+		field.getCell(3, 3).setVisible();
+		field.getCell(3, 4).setMarked();
+		assertEquals(testString, field.toString());
 	}
 }

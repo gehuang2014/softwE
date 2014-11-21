@@ -33,9 +33,9 @@ public class CellTest {
 	@Test
 	public void testGetMarked() {
 		assertFalse(cell.getMarked());
-		cell.setMarked(true);
+		cell.setMarked();
 		assertTrue(cell.getMarked());
-		cell.setMarked(false);
+		cell.setMarked();
 		assertFalse(cell.getMarked());
 	}
 
@@ -51,5 +51,12 @@ public class CellTest {
 		assertEquals(0, cell.getNumberAdjMines());
 		cell.incNumberAdjMines();
 		assertEquals(1, cell.getNumberAdjMines());
+	}
+
+	@Test
+	public void testToString() {
+		cell.setVisible();
+		cell.incNumberAdjMines();
+		assertEquals("1", cell.toString());
 	}
 }
