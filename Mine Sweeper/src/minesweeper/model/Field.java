@@ -20,11 +20,11 @@ public class Field {
 	}
 
 	public Cell getCell(int x, int y) {
-		return field[x - 1][y - 1];
+		return this.field[x - 1][y - 1];
 	}
 
 	public void setNumMines(int num) {
-		iNumMines = num;
+		this.iNumMines = num;
 	}
 
 	public int getNumMines() {
@@ -53,41 +53,6 @@ public class Field {
 		}
 	}
 
-	public void trigger(int x, int y) {
-		int width = x - 1;
-		int height = y - 1;
-		if (field[width][height].getMine()) {
-			gameOver();
-			return;
-		}
-		triggerR(width, height);
-	}
-
-	public void triggerR(int x, int y) {
-		try {
-			if (!field[x][y].getVisible()) {
-				field[x][y].setVisible();
-				if (field[x][y].getNumberAdjMines() == 0) {
-					for (int yOffset = -1; yOffset <= +1; yOffset++) {
-						for (int xOffset = -1; xOffset <= +1; xOffset++) {
-							triggerR(x + xOffset, y + yOffset);
-						}
-					}
-				}
-			}
-		} catch (IndexOutOfBoundsException e) {
-			return;
-		}
-	}
-
-	public void mark(int x, int y) {
-		field[x - 1][y - 1].setMarked();
-	}
-
-	public void gameOver() {
-		
-	}
-
 	@Override
 	public String toString() {
 		StringBuffer sbLineSep = new StringBuffer();
@@ -111,11 +76,4 @@ public class Field {
 		sb.append(sbLineSep);
 		return sb.toString();
 	}
-	/*public static void main(String args[]) {
-		Field field = new Field(10, 10);
-		field.setNumMines(10);
-		field.initField();
-		field.trigger(1, 1);
-		System.out.print(field.toString());
-	}*/
 }
