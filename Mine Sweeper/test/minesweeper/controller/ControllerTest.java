@@ -35,7 +35,8 @@ public class ControllerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		controller = new Controller(width, height, numMines);
+		controller = new Controller();
+		controller.setup(width, height, numMines);
 	}
 
 	@Test
@@ -59,6 +60,11 @@ public class ControllerTest {
 		assertFalse(controller.getField().getCell(3, 3).getMarked());
 		controller.mark(3, 3);
 		assertTrue(controller.getField().getCell(3, 3).getMarked());
+	}
+
+	@Test
+	public void testSetup() {
+		
 	}
 
 	@Test
