@@ -8,13 +8,12 @@ import minesweeper.controller.Controller;
 
 public class TextUI implements Observer {
 	private Controller contr;
-	Scanner scanner;
+	private Scanner scanner;
 
 	public TextUI(Controller c) {
 		this.contr = c;
 		contr.addObserver(this);
 		scanner = new Scanner(System.in);
-		printStart();
 	}
 
 	@Override
@@ -25,7 +24,9 @@ public class TextUI implements Observer {
 	public boolean printTUI() {
 		System.out.println(contr.toString());
 		System.out.println("Enter command: x y - trigger cell at coordinates (x,y) | x y ! - mark cell at coordinates (x,y) | q - quit");
-		if (scanner.next().equalsIgnoreCase("q")) return true;
+		if (scanner.next().equalsIgnoreCase("q")) {
+			return true;
+		}
 		int x = scanner.nextInt();
 		int y = scanner.nextInt();
 		if (contr.trigger(x, y)) {
