@@ -54,6 +54,16 @@ public class FieldTest {
 	}
 
 	@Test
+	public void getWidth() {
+		assertEquals(width, field.getWidth());
+	}
+
+	@Test
+	public void getHeight() {
+		assertEquals(height, field.getHeight());
+	}
+
+	@Test
 	public void testInitField() {
 		field.setNumMines(10);
 		field.initField();

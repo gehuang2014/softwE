@@ -27,6 +27,14 @@ public class Field {
 		this.iNumMines = num;
 	}
 
+	public int getWidth() {
+		return x;
+	}
+
+	public int getHeight() {
+		return y;
+	}
+
 	public int getNumMines() {
 		return this.iNumMines;
 	}

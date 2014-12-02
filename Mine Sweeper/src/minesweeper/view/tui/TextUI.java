@@ -9,6 +9,8 @@ import minesweeper.controller.Controller;
 public class TextUI implements Observer {
 	private Controller contr;
 	private Scanner scanner;
+	private final int MINSIZE = 5;
+	private final int MAXSIZE = 20;
 
 	public TextUI(Controller c) {
 		this.contr = c;
@@ -22,18 +24,61 @@ public class TextUI implements Observer {
 	}
 
 	public boolean printTUI() {
+		int[] coords;
+		String[] cmd;
+
 		System.out.println(contr.toString());
 		System.out.println("Enter command: x y - trigger cell at coordinates (x,y) | x y ! - mark cell at coordinates (x,y) | q - quit");
-		if (scanner.next().equalsIgnoreCase("q")) {
+		if (scanner.nextLine().equalsIgnoreCase("q")) {
 			return true;
 		}
-		int x = scanner.nextInt();
-		int y = scanner.nextInt();
-		if (contr.trigger(x, y)) {
+
+		cmd = scanner.nextLine().split(" ");
+		coords = checkCommand(cmd);
+		if (coords[0] == -1) {
+			return false;
+		}
+
+		if (coords[2] == 1) {
+			contr.mark(coords[0], coords[1]);
+		}
+
+		if (contr.trigger(coords[0], coords[1])) {
 			System.out.println("You lost!");
 			return true;
 		}
 		return false;
+	}
+
+	private int[] checkCommand(String[] cmd) {
+		int[] coords = {0, 0, 0};
+		if (cmd.length < 2 || cmd.length > 3) {
+			System.out.println("Invalid argument count!");
+			coords[0] = -1;
+			return coords;
+		}
+		try {
+			coords[0] = Integer.parseInt(cmd[0]);
+			coords[1] = Integer.parseInt(cmd[1]);
+		} catch (NumberFormatException e) {
+			System.out.println("Invalid coordinates!");
+			coords[0] = -1;
+			return coords;
+		}
+		if (coords[0] < 1 || coords[0] > contr.getField().getWidth() || coords[1] < 1 || coords[1] > contr.getField().getHeight()) {
+			System.out.println("Coordinates out of bounds!");
+			coords[0] = -1;
+			return coords;
+		}
+		if (cmd.length == 3) {
+			if (!cmd[2].equals("!")) {
+				System.out.println("Unknown argument!");
+				coords[0] = -1;
+				return coords;
+			}
+			coords[2] = 1;
+		} 
+		return coords;
 	}
 
 	public void printStart() {
@@ -42,11 +87,11 @@ public class TextUI implements Observer {
 		do {
 			System.out.println("Enter width (5-20):");
 			width = scanner.nextInt();
-		} while (width < 5 && width > 20);
+		} while (width < MINSIZE && width > MAXSIZE);
 		do {
 			System.out.println("Enter height (5-20):");
 			height = scanner.nextInt();
-		} while (height < 5 && height > 20);
+		} while (height < MINSIZE && height > MAXSIZE);
 		do {
 			System.out.println("Enter number of mines:");
 			numMines = scanner.nextInt();
