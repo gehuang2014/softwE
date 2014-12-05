@@ -1,4 +1,4 @@
-package minesweeper.model;
+package de.htwg.minesweeper.model;
 
 import static org.junit.Assert.*;
 import org.junit.Before;

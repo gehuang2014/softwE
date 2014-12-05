@@ -5,4 +5,4 @@
  * @author hokruepp
  *
  */
-package minesweeper.view.tui;
+package de.htwg.minesweeper.view.gui;

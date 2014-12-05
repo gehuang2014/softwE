@@ -1,10 +1,9 @@
-package minesweeper.view.tui;
+package de.htwg.minesweeper.view.tui;
 
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
-
-import minesweeper.controller.Controller;
+import de.htwg.minesweeper.controller.Controller;
 
 public class TextUI implements Observer {
 	private Controller contr;
@@ -25,33 +24,46 @@ public class TextUI implements Observer {
 
 	public boolean printTUI() {
 		int[] coords;
+		int iState;
 		String[] cmd;
 
 		System.out.println(contr.toString());
 		System.out.println("Enter command: x y - trigger cell at coordinates (x,y) | x y ! - mark cell at coordinates (x,y) | q - quit");
-		if (scanner.nextLine().equalsIgnoreCase("q")) {
-			return true;
-		}
 
 		cmd = scanner.nextLine().split(" ");
 		coords = checkCommand(cmd);
+		if (coords[0] == -2) {
+			return true;
+		}
+
 		if (coords[0] == -1) {
 			return false;
 		}
 
 		if (coords[2] == 1) {
 			contr.mark(coords[0], coords[1]);
-		}
-
-		if (contr.trigger(coords[0], coords[1])) {
-			System.out.println("You lost!");
-			return true;
+		} else {
+			iState = contr.trigger(coords[0], coords[1]);
+			switch (iState) {
+				case 0:
+					System.out.println("You lost!");
+					return true;
+				case 1:
+					System.out.println("You win!");
+					return true;
+				case 2:
+					return false;
+			}
 		}
 		return false;
 	}
 
 	private int[] checkCommand(String[] cmd) {
 		int[] coords = {0, 0, 0};
+		if (cmd.length == 1 && cmd[0].equals("q")) {
+			coords[0] = -2;
+			return coords;
+		}
 		if (cmd.length < 2 || cmd.length > 3) {
 			System.out.println("Invalid argument count!");
 			coords[0] = -1;

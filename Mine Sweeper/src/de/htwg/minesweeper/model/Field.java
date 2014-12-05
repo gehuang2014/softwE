@@ -1,4 +1,4 @@
-package minesweeper.model;
+package de.htwg.minesweeper.model;
 
 
 public class Field {
@@ -6,6 +6,7 @@ public class Field {
 	private int x;
 	private int y;
 	private int iNumMines = 0;
+	private int iVisCount = 0;
 
 	public Field(int width, int height) {
 		field = new Cell[width][height];
@@ -17,6 +18,15 @@ public class Field {
 				field[i][j] = new Cell(i + 1, j + 1);
 			}
 		}
+	}
+
+	public void makeCellVisible(int x, int y) {
+		this.field[x - 1][y - 1].setVisible();
+		iVisCount++;
+	}
+
+	public int getVisCount() {
+		return this.iVisCount;
 	}
 
 	public Cell getCell(int x, int y) {

@@ -1,4 +1,4 @@
-package minesweeper.model;
+package de.htwg.minesweeper.model;
 
 public class Cell {
 	private int x;

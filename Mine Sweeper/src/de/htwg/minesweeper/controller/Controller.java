@@ -1,8 +1,8 @@
-package minesweeper.controller;
+package de.htwg.minesweeper.controller;
 
 import java.util.Observable;
 
-import minesweeper.model.Field;
+import de.htwg.minesweeper.model.Field;
 
 public class Controller extends Observable {
 	private Field field;
@@ -11,19 +11,19 @@ public class Controller extends Observable {
 		return this.field;
 	}
 
-	public boolean trigger(int x, int y) {
+	public int trigger(int x, int y) {
 		if (field.getCell(x, y).getMine()) {
-			return true;
+			return gameOver();
 		}
 		triggerR(x, y);
 		notifyObservers();
-		return false;
+		return checkWin();
 	}
 
 	public void triggerR(int x, int y) {
 		try {
 			if (!field.getCell(x, y).getVisible()) {
-				field.getCell(x, y).setVisible();
+				field.makeCellVisible(x, y);
 				if (field.getCell(x, y).getNumberAdjMines() == 0) {
 					for (int yOffset = -1; yOffset <= +1; yOffset++) {
 						for (int xOffset = -1; xOffset <= +1; xOffset++) {
@@ -35,6 +35,17 @@ public class Controller extends Observable {
 		} catch (IndexOutOfBoundsException e) {
 			return;
 		}
+	}
+
+	private int gameOver() {
+		return 0;
+	}
+
+	public int checkWin() {
+		if (field.getVisCount() == field.getHeight() * field.getWidth() - field.getNumMines()) {
+			return 1;
+		}
+		return 2;
 	}
 
 	public void mark(int x, int y) {
