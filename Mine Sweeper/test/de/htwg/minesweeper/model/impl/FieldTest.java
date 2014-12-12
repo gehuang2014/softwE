@@ -1,9 +1,9 @@
-package de.htwg.minesweeper.model;
+package de.htwg.minesweeper.model.impl;
 
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
+import de.htwg.minesweeper.model.IField;
 
 public class FieldTest {
 	Field field;

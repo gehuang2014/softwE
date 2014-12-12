@@ -1,6 +1,6 @@
 package de.htwg.minesweeper;
 
-import de.htwg.minesweeper.controller.Controller;
+import de.htwg.minesweeper.controller.IController;
 import de.htwg.minesweeper.view.tui.TextUI;
 
 public class Minesweeper {

@@ -1,6 +1,8 @@
-package de.htwg.minesweeper.model;
+package de.htwg.minesweeper.model.impl;
 
-public class Cell {
+import de.htwg.minesweeper.model.ICell;
+
+public class Cell implements ICell {
 	private int x;
 	private int y;
 	private boolean bMine = false;
@@ -32,7 +34,7 @@ public class Cell {
 	public void setMarked() {
 		if (bMarked) {
 			bMarked = false;
-		} else if (!bMarked) {
+		} else {
 			bMarked  = true;
 		}
 	}

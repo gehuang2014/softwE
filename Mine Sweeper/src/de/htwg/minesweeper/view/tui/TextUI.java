@@ -1,11 +1,10 @@
 package de.htwg.minesweeper.view.tui;
 
-import java.util.Observable;
-import java.util.Observer;
+import de.htwg.util.observer.IObserver;
 import java.util.Scanner;
-import de.htwg.minesweeper.controller.Controller;
+import de.htwg.minesweeper.controller.IController;
 
-public class TextUI implements Observer {
+public class TextUI implements IObserver {
 	private Controller contr;
 	private Scanner scanner;
 	private final static int iMINSIZE = 5;
@@ -20,7 +19,7 @@ public class TextUI implements Observer {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update() {
 		printTUI();
 	}
 

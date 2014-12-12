@@ -1,7 +1,8 @@
-package de.htwg.minesweeper.controller;
+package de.htwg.minesweeper.controller.impl;
 
 import static org.junit.Assert.*;
-import de.htwg.minesweeper.model.Field;
+import de.htwg.minesweeper.controller.IController;
+import de.htwg.minesweeper.model.IField;
 
 import org.junit.Before;
 import org.junit.Test;

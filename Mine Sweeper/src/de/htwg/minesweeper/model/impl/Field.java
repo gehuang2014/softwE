@@ -1,7 +1,8 @@
-package de.htwg.minesweeper.model;
+package de.htwg.minesweeper.model.impl;
 
+import de.htwg.minesweeper.model.IField;
 
-public class Field {
+public class Field implements IField {
 	private Cell[][] field;
 	private int x;
 	private int y;

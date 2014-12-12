@@ -1,10 +1,10 @@
-package de.htwg.minesweeper.controller;
+package de.htwg.minesweeper.controller.impl;
 
-import java.util.Observable;
+import de.htwg.util.observer.Observable;
+import de.htwg.minesweeper.model.IField;
+import de.htwg.minesweeper.controller.IController;
 
-import de.htwg.minesweeper.model.Field;
-
-public class Controller extends Observable {
+public class Controller extends Observable implements IController {
 	private Field field;
 
 	public Field getField() {
