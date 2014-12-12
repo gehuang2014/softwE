@@ -8,8 +8,10 @@ import de.htwg.minesweeper.controller.Controller;
 public class TextUI implements Observer {
 	private Controller contr;
 	private Scanner scanner;
-	private final int MINSIZE = 5;
-	private final int MAXSIZE = 20;
+	private final static int iMINSIZE = 5;
+	private final static int iMAXSIZE = 20;
+	private final static int iQUIT = -2;
+	private final static int iMAXARGS = 3;
 
 	public TextUI(Controller c) {
 		this.contr = c;
@@ -27,12 +29,11 @@ public class TextUI implements Observer {
 		int iState;
 		String[] cmd;
 
-		System.out.println(contr.toString());
-		System.out.println("Enter command: x y - trigger cell at coordinates (x,y) | x y ! - mark cell at coordinates (x,y) | q - quit");
+		System.out.println(contr.toString() + "\nEnter command: x y - trigger cell at coordinates (x,y) | x y ! - mark cell at coordinates (x,y) | q - quit");
 
 		cmd = scanner.nextLine().split(" ");
 		coords = checkCommand(cmd);
-		if (coords[0] == -2) {
+		if (coords[0] == iQUIT) {
 			return true;
 		}
 
@@ -46,12 +47,10 @@ public class TextUI implements Observer {
 			iState = contr.trigger(coords[0], coords[1]);
 			switch (iState) {
 				case 0:
-					System.out.println(contr.toString());
-					System.out.println("You lost!");
+					System.out.println(contr.toString() + "\nYou lose!");
 					return true;
 				case 1:
-					System.out.println(contr.toString());
-					System.out.println("You win!");
+					System.out.println(contr.toString() + "\nYou win!");
 					return true;
 				case 2:
 					return false;
@@ -63,10 +62,10 @@ public class TextUI implements Observer {
 	private int[] checkCommand(String[] cmd) {
 		int[] coords = {0, 0, 0};
 		if (cmd.length == 1 && cmd[0].equals("q")) {
-			coords[0] = -2;
+			coords[0] = iQUIT;
 			return coords;
 		}
-		if (cmd.length < 2 || cmd.length > 3) {
+		if (cmd.length < 2 || cmd.length > iMAXARGS) {
 			System.out.println("Invalid argument count!");
 			coords[0] = -1;
 			return coords;
@@ -84,7 +83,7 @@ public class TextUI implements Observer {
 			coords[0] = -1;
 			return coords;
 		}
-		if (cmd.length == 3) {
+		if (cmd.length == iMAXARGS) {
 			if (!cmd[2].equals("!")) {
 				System.out.println("Unknown argument!");
 				coords[0] = -1;
@@ -101,11 +100,11 @@ public class TextUI implements Observer {
 		do {
 			System.out.println("Enter width (5-20):");
 			width = scanner.nextInt();
-		} while (width < MINSIZE || width > MAXSIZE);
+		} while (width < iMINSIZE || width > iMAXSIZE);
 		do {
 			System.out.println("Enter height (5-20):");
 			height = scanner.nextInt();
-		} while (height < MINSIZE || height > MAXSIZE);
+		} while (height < iMINSIZE || height > iMAXSIZE);
 		do {
 			System.out.println("Enter number of mines:");
 			numMines = scanner.nextInt();
