@@ -63,6 +63,9 @@ public class Cell {
 			return "!";
 		}
 		if (bVisible) {
+			if (bMine) {
+				return "X";
+			}
 			return String.valueOf(iAdjMines);
 		}
 		return " ";

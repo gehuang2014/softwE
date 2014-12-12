@@ -71,6 +71,16 @@ public class Field {
 		}
 	}
 
+	public void markMines() {
+		for (int i = 0; i < x; i++) {
+			for (int j = 0; j < y; j++) {
+				if (field[i][j].getMine()) {
+					field[i][j].setVisible();
+				}
+			}
+		}
+	}
+
 	@Override
 	public String toString() {
 		StringBuffer sbLineSep = new StringBuffer();

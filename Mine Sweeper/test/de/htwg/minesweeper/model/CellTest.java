@@ -58,5 +58,7 @@ public class CellTest {
 		cell.setVisible();
 		cell.incNumberAdjMines();
 		assertEquals("1", cell.toString());
+		cell.setMine();
+		assertEquals("X", cell.toString());
 	}
 }

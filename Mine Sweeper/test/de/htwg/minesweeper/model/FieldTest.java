@@ -93,8 +93,14 @@ public class FieldTest {
 	}
 
 	@Test
-	public void testGameOver() {
-		assertTrue(true);
+	public void testMarkMines() {
+		field.getCell(5, 5).setMine();
+		field.getCell(3, 3).setMine();
+		assertEquals(" ", field.getCell(5, 5).toString());
+		assertEquals(" ", field.getCell(3, 3).toString());
+		field.markMines();
+		assertEquals("X", field.getCell(5, 5).toString());
+		assertEquals("X", field.getCell(3, 3).toString());
 	}
 	
 	@Test

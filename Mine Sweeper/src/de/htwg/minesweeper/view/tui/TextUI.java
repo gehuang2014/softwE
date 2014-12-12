@@ -46,9 +46,11 @@ public class TextUI implements Observer {
 			iState = contr.trigger(coords[0], coords[1]);
 			switch (iState) {
 				case 0:
+					System.out.println(contr.toString());
 					System.out.println("You lost!");
 					return true;
 				case 1:
+					System.out.println(contr.toString());
 					System.out.println("You win!");
 					return true;
 				case 2:
@@ -99,15 +101,15 @@ public class TextUI implements Observer {
 		do {
 			System.out.println("Enter width (5-20):");
 			width = scanner.nextInt();
-		} while (width < MINSIZE && width > MAXSIZE);
+		} while (width < MINSIZE || width > MAXSIZE);
 		do {
 			System.out.println("Enter height (5-20):");
 			height = scanner.nextInt();
-		} while (height < MINSIZE && height > MAXSIZE);
+		} while (height < MINSIZE || height > MAXSIZE);
 		do {
 			System.out.println("Enter number of mines:");
 			numMines = scanner.nextInt();
-		} while (numMines < 1 && numMines > width * height);
+		} while (numMines < 1 || numMines > width * height - 1);
 		contr.setup(width, height, numMines);
 	}
 }

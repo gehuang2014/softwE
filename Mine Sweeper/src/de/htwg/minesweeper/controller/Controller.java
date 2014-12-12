@@ -38,11 +38,13 @@ public class Controller extends Observable {
 	}
 
 	private int gameOver() {
+		field.markMines();
 		return 0;
 	}
 
 	public int checkWin() {
 		if (field.getVisCount() == field.getHeight() * field.getWidth() - field.getNumMines()) {
+			field.markMines();
 			return 1;
 		}
 		return 2;

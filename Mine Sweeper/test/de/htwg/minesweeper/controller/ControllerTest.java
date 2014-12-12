@@ -66,6 +66,9 @@ public class ControllerTest {
 		controller.getField().getCell(4, 1).incNumberAdjMines();
 		controller.getField().getCell(4, 2).incNumberAdjMines();
 		assertEquals(2, controller.trigger(5, 5));
+		controller = new Controller();
+		controller.setup(width, height, 0);
+		controller.getField().getCell(1, 1).setMine();
 		assertEquals(1, controller.trigger(2, 1));
 	}
 
