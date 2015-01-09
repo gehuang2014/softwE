@@ -5,9 +5,13 @@ import de.htwg.minesweeper.model.IField;
 import de.htwg.minesweeper.controller.IController;
 
 public class Controller extends Observable implements IController {
-	private Field field;
+	private IField field;
 
-	public Field getField() {
+	public Controller(IField f) {
+		field = f;
+	}
+
+	public IField getField() {
 		return this.field;
 	}
 
@@ -20,7 +24,7 @@ public class Controller extends Observable implements IController {
 		return checkWin();
 	}
 
-	public void triggerR(int x, int y) {
+	private void triggerR(int x, int y) {
 		try {
 			if (!field.getCell(x, y).getVisible()) {
 				field.makeCellVisible(x, y);
@@ -42,7 +46,7 @@ public class Controller extends Observable implements IController {
 		return 0;
 	}
 
-	public int checkWin() {
+	private int checkWin() {
 		if (field.getVisCount() == field.getHeight() * field.getWidth() - field.getNumMines()) {
 			field.markMines();
 			return 1;
@@ -56,7 +60,7 @@ public class Controller extends Observable implements IController {
 	}
 
 	public void setup(int x, int y, int iNumMines) {
-		field = new Field(x, y);
+		field.create(x, y);
 		field.setNumMines(iNumMines);
 		field.initField();
 	}

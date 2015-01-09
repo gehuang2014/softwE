@@ -3,12 +3,13 @@ package de.htwg.minesweeper.controller.impl;
 import static org.junit.Assert.*;
 import de.htwg.minesweeper.controller.IController;
 import de.htwg.minesweeper.model.IField;
+import de.htwg.minesweeper.model.impl.Field;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class ControllerTest {
-	Controller controller;
+	IController controller;
 	int width = 10;
 	int height = 10;
 	int numMines = 10;
@@ -36,13 +37,14 @@ public class ControllerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		controller = new Controller();
+		controller = new Controller(new Field());
 		controller.setup(width, height, numMines);
 	}
 
 	@Test
 	public void testGetField() {
-		Field field = new Field(width, height);
+		IField field = controller.getField();
+		field.create(width, height);
 		for (int i = 1; i <= width; i++) {
 			for (int j = 1; j <= height; j++) {
 				assertEquals(field.getCell(i, j).getColumn(), controller.getField().getCell(i, j).getColumn());
@@ -53,7 +55,7 @@ public class ControllerTest {
 
 	@Test
 	public void testTrigger() {
-		controller = new Controller();
+		controller = new Controller(new Field());
 		controller.setup(width, height, 0);
 		controller.getField().getCell(1, 1).setMine();
 		controller.getField().getCell(3, 1).setMine();
@@ -67,7 +69,7 @@ public class ControllerTest {
 		controller.getField().getCell(4, 1).incNumberAdjMines();
 		controller.getField().getCell(4, 2).incNumberAdjMines();
 		assertEquals(2, controller.trigger(5, 5));
-		controller = new Controller();
+		controller = new Controller(new Field());
 		controller.setup(width, height, 0);
 		controller.getField().getCell(1, 1).setMine();
 		assertEquals(1, controller.trigger(2, 1));

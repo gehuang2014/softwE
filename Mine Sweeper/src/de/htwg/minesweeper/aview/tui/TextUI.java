@@ -1,18 +1,18 @@
-package de.htwg.minesweeper.view.tui;
+package de.htwg.minesweeper.aview.tui;
 
 import de.htwg.util.observer.IObserver;
 import java.util.Scanner;
 import de.htwg.minesweeper.controller.IController;
 
 public class TextUI implements IObserver {
-	private Controller contr;
+	private IController contr;
 	private Scanner scanner;
 	private final static int iMINSIZE = 5;
 	private final static int iMAXSIZE = 20;
 	private final static int iQUIT = -2;
 	private final static int iMAXARGS = 3;
 
-	public TextUI(Controller c) {
+	public TextUI(IController c) {
 		this.contr = c;
 		contr.addObserver(this);
 		scanner = new Scanner(System.in);
@@ -23,12 +23,14 @@ public class TextUI implements IObserver {
 		printTUI();
 	}
 
-	public boolean printTUI() {
+	public void printTUI() {
+		System.out.println(contr.toString() + "\nEnter command: x y - trigger cell at coordinates (x,y) | x y ! - mark cell at coordinates (x,y) | q - quit");
+	}
+
+	public boolean processCmd() { 
 		int[] coords;
 		int iState;
 		String[] cmd;
-
-		System.out.println(contr.toString() + "\nEnter command: x y - trigger cell at coordinates (x,y) | x y ! - mark cell at coordinates (x,y) | q - quit");
 
 		cmd = scanner.nextLine().split(" ");
 		coords = checkCommand(cmd);
@@ -105,9 +107,11 @@ public class TextUI implements IObserver {
 			height = scanner.nextInt();
 		} while (height < iMINSIZE || height > iMAXSIZE);
 		do {
-			System.out.println("Enter number of mines:");
+			System.out.println("Enter number of mines (1 - " + (width * height - 1) + "):");
 			numMines = scanner.nextInt();
 		} while (numMines < 1 || numMines > width * height - 1);
 		contr.setup(width, height, numMines);
+		scanner.nextLine();
+		printTUI();
 	}
 }

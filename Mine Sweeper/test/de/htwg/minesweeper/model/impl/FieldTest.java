@@ -6,7 +6,7 @@ import org.junit.Test;
 import de.htwg.minesweeper.model.IField;
 
 public class FieldTest {
-	Field field;
+	IField field;
 	int width = 10;
 	int height = 10;
 	String testString = "+---+---+---+---+---+---+---+---+---+---+\n" +
@@ -33,7 +33,8 @@ public class FieldTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		field = new Field(width, height);
+		field = new Field();
+		field.create(width, height);
 	}
 
 	@Test

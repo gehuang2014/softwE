@@ -1,5 +1,6 @@
 package de.htwg.minesweeper.model.impl;
 
+import de.htwg.minesweeper.model.ICell;
 import de.htwg.minesweeper.model.IField;
 
 public class Field implements IField {
@@ -9,7 +10,7 @@ public class Field implements IField {
 	private int iNumMines = 0;
 	private int iVisCount = 0;
 
-	public Field(int width, int height) {
+	public void create(int width, int height) {
 		field = new Cell[width][height];
 		x = width;
 		y = height;
@@ -30,8 +31,8 @@ public class Field implements IField {
 		return this.iVisCount;
 	}
 
-	public Cell getCell(int x, int y) {
-		return this.field[x - 1][y - 1];
+	public ICell getCell(int x, int y) {
+		return (ICell) this.field[x - 1][y - 1];
 	}
 
 	public void setNumMines(int num) {

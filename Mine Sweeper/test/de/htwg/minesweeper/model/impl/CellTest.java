@@ -7,7 +7,7 @@ import de.htwg.minesweeper.model.ICell;
 
 public class CellTest {
 
-	Cell cell;
+	ICell cell;
 
 	@Before
 	public void setUp() throws Exception {
